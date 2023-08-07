@@ -491,20 +491,6 @@ function checkWindowSize() {
    else{
       addFiltersBehaviour();
    }
-   if (window.innerWidth < 770){
-      
-      let previousScrollPosition = window.scrollY;
-      window.onscroll = function() {
-         let currentScrollPosition = window.scrollY;
-         if (previousScrollPosition > currentScrollPosition) {
-          document.querySelector(".products-info").style.top = "12vh";
-         } 
-         else {
-            document.querySelector(".products-info").style.top = "-50vh";
-         }
-         previousScrollPosition = currentScrollPosition;
-      }
-   }
  }
  
 window.onresize = checkWindowSize;
@@ -539,4 +525,18 @@ hamburgerFilter.onclick = function(){
 let closeFilterButton = document.querySelector("#button-close");
 closeFilterButton.onclick = function(){
   sidebar.classList.toggle("active");
+}
+
+if (window.innerWidth < 922){      
+   let previousScrollPosition = window.scrollY;
+   window.onscroll = function() {
+      let currentScrollPosition = window.scrollY;
+      if (previousScrollPosition > currentScrollPosition) {
+         document.querySelector(".products-info").style.top = "12vh";
+      } 
+      else {
+         document.querySelector(".products-info").style.top = "-50vh";
+      }
+      previousScrollPosition = currentScrollPosition;
+   }
 }
