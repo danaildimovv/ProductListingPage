@@ -247,7 +247,7 @@ header a{
 
   }
 }
-@media all and (max-width: 729px){
+@media all and (max-width: 770px){
   .products-info{
     height: auto;
     grid-template-columns: 4fr 2fr;
