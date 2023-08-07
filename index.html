@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>MyClothesShop</title>
+    
+    
+</head>
+
+<body>
+    <header>
+        <a href="./"><h1 class="logo">MyClothesShop</h1></a>
+  
+        <nav class="nav-bar">
+          <ul>
+            <li><a class="active-category" onclick='filterProducts("default")'>All Products</a></li>
+            <li><a onclick='filterProducts("Apparel")'>Apparel</a></li>
+            <li><a onclick='filterProducts("Footwear")'>Footwear</a></li>
+          </ul>
+        </nav>
+
+        <div class="hamburger">
+          <i class="fa-solid fa-bars fa-2xl" style="color:white"></i>
+        </div>
+    </header>
+
+    <div class="container">
+
+      <div class="sidebar">
+        <div id="close-filter"><i id="button-close" class="fa-solid fa-xmark fa-2xl"></i></div>
+        <ul class="filters">
+          <li id="filter-title">
+          <!-- <div class="filter-heading">
+            <h2>Products Filter</h2>
+          </div> -->
+        
+          </li>
+          <li>
+        <label>Subcategory</label>
+        <br>
+        <select name="subcategories" id="subcategories-filter">
+          <option value="default">All</option>
+          <option class="apparel" value="Topwear">Topwear</option>
+          <option class="apparel" value="Bottomwear">Bottomwear</option>
+          <option class="apparel" value="Dress">Dresses</option>
+          <option class="footwear" value="Shoes">Shoes</option>
+          <option class="footwear" value="Sandal">Sandals</option>
+          <option class="footwear" value="Flip-Flops">Flip Flops</option>
+
+        </select>
+      </li>
+      <li>
+        <label>Color</label>
+        <br>
+        <select name="colors" id="color-filter">
+          <option value="default">All</option>
+          <option value="Blue">Blue</option> 
+          <option value="Red">Red</option> 
+          <option value="Green">Green</option>
+          <option value="Black">Black</option>
+          <option value="White">White</option>
+          <option value="Pink">Pink</option>  
+          <option value="Yellow">Yellow</option>
+          <option value="Olive">Olive</option>
+          <option value="Navy-Blue">Navy Blue</option>
+          <option value="Grey">Grey</option>
+          <option value="Orange">Orange</option>
+          <option value="Purple">Purple</option>
+          <option value="Turquoise-Blue">Turquoise Blue</option>
+          <option value="Khaki">Khaki</option>
+          <option value="Multi">Multi</option>
+          <option value="Beige">Beige</option> 
+          <option value="Brown">Brown</option>
+          <option value="Tan">Tan</option>
+          <option value="Maroon">Maroon</option>
+          <option value="Charcoal">Charcoal</option>
+          <option value="Silver">Silver</option>
+          <option value="Copper">Copper</option>
+          <option value="Lavender">Lavender</option>
+          <option value="Gold">Gold</option>
+          <option value="Bronze">Bronze</option>                  
+        </select>
+      </li>
+      <li>
+        <label>Brand</label>
+        <br>
+        <select name="brands" id="brands-filter">
+          <option value="default">All</option>
+          <option value="Doodle">Doodle</option> 
+          <option value="Disney">Disney</option> 
+          <option value="Gini-and-Jony">Gini and Jony</option>
+          <option value="Palm-Tree">Palm Tree</option>
+          <option value="Reebok">Reebok</option>
+          <option value="Chhota-Bheem">Chhota Bheem</option>  
+          <option value="Madagascar3">Madagascar3</option>
+          <option value="United-Colors-of-Benetton">United Colors of Benetton</option>
+          <option value="Puma">Puma</option>
+          <option value="Fila">Fila</option>
+          <option value="Adidas">Adidas</option>
+          <option value="Nike">Nike</option>
+          <option value="Gas">Gas</option>
+          <option value="Clarks">Clarks</option>
+          <option value="Timberland">Timberland</option>
+          <option value="Vans">Vans</option>
+          <option value="Lotto">Lotto</option>
+          <option value="Lee-Cooper">Lee Cooper</option>
+          <option value="Enroute">Enroute</option>
+          <option value="brand">Other</option>
+
+          </select>
+
+        </li>
+        <!-- <li>
+          <label>Rating</label>
+          <br>
+          <select name="rating" id="rating-filter">
+            <option value="default">All</option>
+            <option value="1">⭐</option> 
+            <option value="2">⭐⭐</option> 
+            <option value="3">⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐</option> 
+            </select>
+  
+          </li> -->
+        <li>
+          <div id="price-filter">
+            <label>Price</label>
+            <br>
+          <label class="min-max-labels">Min</label>
+          <input type="text" id="min-price">
+          <label class="min-max-labels">Max</label>
+          <input type="text" id="max-price">
+          </div>
+        </li>
+        <li>
+        <button id="submit-filter-button" onclick="filterCurrentProducts()">Filter</button>
+        </li>
+        <li>
+          <button id="reset-filters-desktop" class="reset-filters-button">Reset Filter</button>
+        </li>
+      </ul>
+      </div>
+
+      <div class="products">
+        
+        <div class="products-info">
+          <div class="category-and-description"></div>
+          <div class="sort-dropdown">
+            <select name="sorting-options" id="sorting"> 
+              <option value="default">Sort by: Default</option>
+              <option value="price-asc">Sort by: Price (Asc)</option> 
+              <option value="price-desc">Sort by: Price (Desc)</option> 
+              <option value="sort-az">Sort by: A-Z</option> 
+              <option value="sort-za">Sort by: Z-A</option> 
+            </select> 
+          </div>
+          <div class="filter-hamburger">
+            <button id="filter-button">Open Filter</button>
+          </div>
+          <div class="number-of-items"></div>
+
+        </div>
+
+        <div class="product-grid">
+        </div>
+
+      </div>
+
+    </div>
+
+    <button id="load-more-button">Load More</button>
+    <footer>     
+      <ul>
+      <li><a href="">Terms & Conditions</a></li>
+      <li><a href="">Privacy Policy</a></li>
+    </ul>  
+    <a href="" class="fa-brands fa-facebook fa-2xl"></a>
+    <a href="" class="fa-brands fa-instagram fa-2xl"></a>
+    <a href="" class="fa-brands fa-twitter fa-2xl"></a>
+    <a href="" class="fa-brands fa-google fa-2xl"></a>
+    <a href="" class="fa fa-phone fa-2xl"></a>
+    <h3>Copyright MyClothesShop</h3>
+    </footer>
+      <script src="script.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
