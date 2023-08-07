@@ -535,7 +535,7 @@ let currentScrollPosition = window.scrollY;
     document.querySelector(".products-info").style.top = "12vh";
   } 
   else {
-    document.querySelector(".products-info").style.top = "-21vh";
+    document.querySelector(".products-info").style.top = "-50vh";
   }
    
   previousScrollPosition = currentScrollPosition;
