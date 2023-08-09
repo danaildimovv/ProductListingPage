@@ -2,7 +2,6 @@ a {
   font-family: 'Source Sans Pro', sans-serif;  
   text-decoration: none;
 }
-
 body {
   display: flex;
   flex-direction: column;
@@ -23,6 +22,9 @@ header{
   position: sticky;
   top: 0;
 }
+header a{
+  margin: 1rem 1rem 1rem 3.5rem;
+}
 .logo{
   width: 100%;
   max-width: 50px;
@@ -31,9 +33,6 @@ header{
   font-size: 1.5rem;
   font-weight: 700;
   color: skyblue;
-}
-header a{
-  margin: 1rem 1rem 1rem 3.5rem;
 }
 .hamburger{
   display: none;
@@ -48,15 +47,21 @@ header a{
   display: block;
   color: white;
   font-size: 1.4rem;
-  padding: 1.5vh;
+  padding: 1rem;
   border-radius: 2rem;
-  transition: 0.2s;
+  transition: smooth;
   margin: 0 1vh;
+  cursor: pointer;
 }
 .nav-bar ul li a:hover{
-  text-decoration: underline;
+  background-color: #fff;
+  color: #001C30;
 }
-@media only screen and (max-width: 900px){
+.nav-bar ul li a.active-category{
+  background-color: #fff;
+  color: #001C30;
+}
+@media all and (max-width: 900px){
     .hamburger{
       padding-right: 1rem;
       display: block;
@@ -81,7 +86,7 @@ header a{
     .nav-bar ul{
       display: block;
       width: fit-content;
-      margin: 3rem auto 3rem auto;
+      margin: 3rem auto auto auto;
       text-align: center;
       transition: 0.5s;
       opacity: 0;
@@ -99,7 +104,6 @@ header a{
   gap: 1rem;
 }
 .sidebar{
-
   height: 100vh;
   background-color: white;
   z-index:0;
@@ -109,9 +113,6 @@ header a{
   border-bottom: 3px #001C30 solid;
   border-right: 3px #001C30 solid;
 }
-/* .products{
-  display: grid;
-} */
 .number-of-items{
   border: 1px white solid;
   border-right: 0px;
@@ -172,7 +173,6 @@ header a{
   padding: 2px;
   border-radius: 5px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-
 }
 .product .image{
   margin-bottom: 1rem;
@@ -265,8 +265,12 @@ header a{
     height: auto;
     grid-template-columns: 1fr;
   }
-}
-@media all and (max-width: 550px){
+  .nav-bar.active{
+    height: 60vh;
+  }
+  .nav-bar ul{
+    margin: 5rem auto 5rem auto;
+  }
   .product-grid{
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
@@ -335,7 +339,7 @@ label{
 .add-to-cart:hover{
   transform: scale(1.1);
 }
-@media only screen and (max-width: 922px){
+@media all and (max-width: 922px){
   .filter-hamburger{
     padding-right: 1rem;
     display: block;
@@ -454,7 +458,6 @@ footer ul li a{
   font-weight: bold;
   color: #001C30;
   font-size: 1.4rem;
-
 }
 footer ul li a:hover{
   text-decoration: underline;
@@ -474,7 +477,4 @@ footer h3{
 }
 .hide{
   display: none;
-}
-.active-category{
-  text-decoration: underline;
 }

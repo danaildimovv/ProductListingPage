@@ -34,6 +34,8 @@ let resetFilterButtons = document.querySelectorAll(".reset-filters-button");
 // a global variable for all of the "sidebar" filters
 let allFilters = [colorFilter, minPriceInput, maxPriceInput, brandFilter, subcategoriesFilter, ratingFilter]
 
+let itemsToDisplay;
+
 // a function to filter the products on the two main categories - Apparel and Footwear 
 function filterProducts(category){
    // refreshes the product grid, placing all products on the web page in order to filter products accurately
@@ -185,7 +187,8 @@ function displayFilteredProducts(filter, productsToSelectFrom){
       }
 
       // if the displayed items are less than 15, hides the "Load More" button 
-      if (itemsDisplayed < 15){
+
+      if (itemsDisplayed < itemsToDisplay){
          loadMoreButton.style.display = "none";
       }
       // else shows it again
@@ -221,7 +224,7 @@ function hideProduct(product){
       }
 }
 function showFilteredElement(productsNumber, element){
-   if (productsNumber <= 15){
+   if (productsNumber <= itemsToDisplay){
       itemsDisplayed += 1;
       element.classList.remove("hide");
    } 
@@ -373,7 +376,7 @@ function sortProducts(sortType) {
    sortedProducts.forEach(productCard => {
       productGrid.appendChild(productCard);
       productsCount += 1;
-      if(productsCount <= 15){
+      if(productsCount <= itemsToDisplay){
          productCard.classList.remove("hide");
          itemsDisplayed += 1;
       }
@@ -389,6 +392,7 @@ function sortProducts(sortType) {
 }
 
 window.onload = () => {
+   decideItemsToDisplay();
    loadAllProducts();
    addFiltersBehaviour();
    setResetFilterButtons();
@@ -406,28 +410,7 @@ function loadAllProducts(){
          // creates the div for each product card  
          let productCard = document.createElement("div");
 
-         let productTitle = products[i].productTitle;
-         let productCategory = products[i].category;
-         let productSubcategory = products[i].subcategory;  
-         let productColour = products[i].colour;
-         let productPrice = parseFloat(products[i].price);
-         let productBrand = products[i].brand;   
-         let productRating = products[i].rating;  
-         let productGender = products[i].gender;
-         let productType = products[i].productType;
-         let productUsage = products[i].usage;
-
-         if (productBrand.includes(" ")){
-            productBrand = productBrand.replace(/\s/g, "-")
-         } 
-         if (productColour.includes(" ")){
-            productColour = productColour.replace(/\s/g, "-")
-         }
-         if (productSubcategory.includes(" ")){
-            productSubcategory = productSubcategory.replace(/\s/g, "-")
-         }
-
-         productCard.classList.add("product", productCategory, productSubcategory, productColour, `price-${productPrice}`, productBrand, "selected");
+         productCard.classList.add("product", "selected");
 
          let productAttributes = Object.keys(products[i]);
          for (let k in productAttributes){
@@ -451,7 +434,7 @@ function loadAllProducts(){
          // productCard.setAttribute("data-productType", productType);
          // productCard.setAttribute("data-productUsage", productUsage);
 
-         if(i < 15){
+         if(i < itemsToDisplay){
          itemsDisplayed += 1;
          }
          else{
@@ -470,8 +453,8 @@ function loadAllProducts(){
          let productTitleDiv = document.createElement("div");
          productTitleDiv.classList.add("product-title");
          let productCardTitle = document.createElement("h2");
-         productCardTitle.innerText = productTitle;
-         productTitleDiv.appendChild(productCardTitle)
+         productCardTitle.innerText = products[i].productTitle;
+         productTitleDiv.appendChild(productCardTitle);
          
 
          let description = document.createElement("h4");
@@ -565,7 +548,7 @@ function loadMore(){
 function setloadMoreButton(currentProducts){
    let currentItem = itemsDisplayed;
    selectedProductsCount = currentProducts.length;
-   for (let i = currentItem; i< currentItem + 15; i++){
+   for (let i = currentItem; i< currentItem + itemsToDisplay; i++){
       currentProducts[i].classList.remove("hide");
       itemsDisplayed += 1;
 
@@ -638,7 +621,7 @@ function setHamburgerCloseButton(button, bar){
    })
 }
 function setStickyMobile(){
-   if (window.innerWidth < 922){      
+   if (window.innerWidth < 550){      
       let previousScrollPosition = window.scrollY;
       window.onscroll = function() {
          let currentScrollPosition = window.scrollY;
@@ -650,5 +633,13 @@ function setStickyMobile(){
          }
          previousScrollPosition = currentScrollPosition;
       }
+   }
+}
+function decideItemsToDisplay(){
+   if (window.innerWidth < 922){
+      itemsToDisplay = 10;
+   }
+   else{
+      itemsToDisplay = 15;
    }
 }
