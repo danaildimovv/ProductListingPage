@@ -49,7 +49,7 @@ header a{
   font-size: 1.4rem;
   padding: 1rem;
   border-radius: 2rem;
-  transition: smooth;
+  /* transition: smooth; */
   margin: 0 1vh;
   cursor: pointer;
 }
@@ -104,14 +104,17 @@ header a{
   gap: 1rem;
 }
 .sidebar{
-  height: 100vh;
+  height: fit-content;
+  width: 300px;
   background-color: white;
-  z-index:0;
+  z-index: 0;
   text-align: center;
   position: sticky;
   top: 12vh;
-  border-bottom: 3px #001C30 solid;
-  border-right: 3px #001C30 solid;
+  /* border-bottom: 3px #001C30 solid; */
+  overflow-y: scroll;
+  /* border-right: 3px #001C30 solid; */
+  overflow-x: hidden;
 }
 .number-of-items{
   border: 1px white solid;
@@ -201,19 +204,72 @@ header a{
   text-align: center;
   margin: 0 0 0 0;
 }
-.sidebar ul li{
+.sidebar ul li {
   display: block;
   color: #001C30;
   font-size: 1.4rem;
-  padding-top: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  transition: 0.2s;
+  margin: 0 0.5rem 1rem 0.1rem;
+  font-weight: bold;
+  text-align: left;
+  width: fit-content;
+}
+.sidebar ul li.checkbox-filter{
+  color: white;
+  background-color: #001C30;
+}
+.sidebar ul li.checkbox-filter > div{
+  height: auto;
+  overflow-y: auto;
+  width: fit-content;
+  padding-top: 1.5rem;
+  overflow: hidden;
+}
+.sidebar ul li ul{
+  padding-left: 0;
+}
+.price-container-filter{
+  margin: 0 0.5rem 1rem 0.05rem;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+.sidebar ul li ul li{
+  display: block;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 100;
+  text-align: left;
+  padding-top: 0;
+  padding-left: 0;
   border-radius: 2rem;
   transition: 0.2s;
   margin: 0 1vh;
-  font-weight: bold;
+}
+.sidebar ul li ul li label{
+  font-size: 1.2rem;
 }
 .filters{
   list-style: none;
   margin-top: 0;
+  width: auto;
   padding: 0;
 }
 #close-filter{
@@ -225,14 +281,28 @@ header a{
 .filter-heading h3{
   margin: 0;
 }
-
+.filter-box{
+  display: inline-flex;
+  height: 1rem;
+  width: 280px;
+  justify-content: space-between;
+}
+.filter-name{
+  width: auto;
+}
+.subcategories-filter-toggle, .color-filter-toggle, .brands-filter-toggle, .rating-filter-toggle, .price-filter-toggle{
+  padding-right: 0.3rem;
+}
 @media all and (max-width: 1222px){
   .product-grid{
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 1fr;
   }
 }
-
+input{
+  width: 1.2rem;
+  height: 1.2rem; 
+}
 @media all and (max-width: 922px){
   .product-grid{
     grid-template-columns: 1fr 1fr;
@@ -288,24 +358,39 @@ header a{
 #min-price, #max-price{
   width: 60px;
   height: 2rem;
-  border: 1px solid #001C30;
-  color: #fff;
+  border: 1px solid black;
+  color: #001C30;
   font-size: 1rem;
-  background-color: #001C30;
+  background-color: white;
   text-align: center;
 }
-#sorting, #subcategories-filter, #color-filter, #brands-filter, #rating-filter{
-  display: inline-block;
-  padding: 10px 30px;
+.sorting, .subcategories-filter, .brands-filter, .rating-filter{
+  display: block;
+  /* padding: 10px 30px; */
   border: 1px solid #001C30;
   color: #fff;
   font-size: 1rem;
   background-color: #001C30;
-  width: 280px;
+  width: auto;
+  transition: 0.5s;
 }
-#price-filter{
+.sorting{
+  display: inline-block;
+  padding: 0.75rem 2rem;
+}
+.filter-values{
+  display: none;
+}
+.color-filter ul{
+  display: flex;
+  flex-wrap: wrap;
+}
+.color-filter ul li{
+  width: 1.2rem;
+}
+.price-filter{
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  border: 2.5px #001C30 solid;
+  border: 2.5px white solid;
 }
 label{
   font-size: 1.75rem;
@@ -339,6 +424,70 @@ label{
 .add-to-cart:hover{
   transform: scale(1.1);
 }
+input+span+div{
+  display:none;
+  margin-top: -1.5rem;
+}
+input:hover+span+div{
+  display: inline-block;
+  position:absolute;
+  color: black;
+  background-color: white;
+  width: max-content;
+}
+.color-checkbox {
+  display: block;
+  position: relative;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 1.2rem;
+}
+#current-category{
+  font-size: 1.4rem;
+  text-decoration: underline;
+  margin: 1rem 0 1rem 0;
+}
+
+.color-checkbox input[type=checkbox] {
+  visibility: hidden;
+}
+
+.color-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.color-checkbox:hover input ~ .color-box {
+  transform: scale(1.07);
+}
+
+.color-checkbox input:active ~ .color-box {
+  border: 1px solid white solid;
+}
+
+/* .color-checkbox input:checked ~ .color-box {
+  background-color: blue;
+} */
+
+.color-box:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.color-checkbox input:checked ~ .color-box:after {
+  display: block;
+}
+
+.color-checkbox .color-box:after {
+  border: 1px solid white;
+  width: 1.1rem;
+  height: 1.1rem;
+}
 @media all and (max-width: 922px){
   .filter-hamburger{
     padding-right: 1rem;
@@ -365,6 +514,31 @@ label{
     height: 100vh;
     scroll-behavior: smooth;
     position: fixed;
+    overflow-y: scroll;
+  }
+  .sidebar ul li .color-filter ul li{
+    padding-bottom: 4rem;
+    padding-left: 2.5rem;
+  }
+  input+span+div{
+    display: inline-block;
+    position:absolute;
+    color: white;
+    background-color: #001C30;
+    width: auto;
+    margin-top: 0;
+  }
+  .color-box{
+    height: 5.3rem;
+    width: 5.3rem;
+  }
+  .color-checkbox input:active ~ .color-box {
+    border: 1px solid white solid;
+  }
+  .color-checkbox .color-box:after {
+    border: 1px solid white;
+    width: 5.3rem;
+    height: 5.3rem;
   }
   .sidebar ul{
     display: block;
@@ -375,12 +549,23 @@ label{
     opacity: 0;
     padding: 0;
   }
+  .color-filter ul{
+    display: flex;
+    flex-wrap: wrap;
+    width: 17rem;
+  }
+  .color-filter ul li {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
   .sidebar.active ul{
     opacity: 1;
   }
   .sidebar ul li{
     color: white;
-
+  }
+  .subcategories-filter ul{
+    margin: 0 0 0 0;
   }
   #close-filter{
     display: block;
@@ -398,12 +583,17 @@ label{
     border-right: 0px;
  
   }
-  #subcategories-filter, #color-filter, #brands-filter, #min-price, #max-price, #rating-filter{
-    background-color: white;
+  .subcategories-filter, .color-filter, .brands-filter, .rating-filter{
+    /* background-color: white; */
     color: #001C30;
-    border: 1px white solid;
+    width: fit-content;
+    /* border: 1px white solid; */
   }
-  #price-filter{
+  #min-price, #max-price{
+    background-color: white;
+    color: #001C30; 
+  }
+  .price-filter{
     border: 2.5px white solid;
     width: 280px;
     margin-left: 0;
@@ -444,11 +634,9 @@ footer{
 .fa:hover, .fa-brands:hover {
   opacity: 0.7;
 }
-/* Add a hover effect if you want */
 .fa:hover {
   opacity: 0.7;
 }
-
 footer ul {
   list-style: none;
 }

@@ -17,22 +17,22 @@ let allProducts;
 // a global variable for sortedProducts
 let sortedProducts;
 // a global variable for the sorting options
-let sortingOptions = document.querySelector("#sorting");
+let sortingOptions = document.querySelector(".sorting");
 // a global variable for the "Load More" button
 let loadMoreButton = document.querySelector("#load-more-button");
 // global variable to store the minimum and maximum price
 let maxPriceProduct;
 let minPriceProduct;
 // global variables for the filters
-let colorFilter = document.querySelector("#color-filter");
+let colorFilter = document.querySelector(".color-filter");
 let minPriceInput = document.querySelector("#min-price");
 let maxPriceInput = document.querySelector("#max-price");
-let brandFilter = document.querySelector("#brands-filter");
-let subcategoriesFilter = document.querySelector("#subcategories-filter");
-let ratingFilter = document.querySelector("#rating-filter");
+let brandFilter = document.querySelector(".brands-filter");
+let subcategoriesFilter = document.querySelector(".subcategories-filter");
+let ratingFilter = document.querySelector(".rating-filter");
 let resetFilterButtons = document.querySelectorAll(".reset-filters-button");
 // a global variable for all of the "sidebar" filters
-let allFilters = [colorFilter, minPriceInput, maxPriceInput, brandFilter, subcategoriesFilter, ratingFilter]
+let allFilters = [subcategoriesFilter, colorFilter, brandFilter, ratingFilter, minPriceInput, maxPriceInput]
 
 let itemsToDisplay;
 
@@ -58,6 +58,9 @@ function filterProducts(category){
    else{
    categoryAndDescription.innerText = `${category}`;
    }
+   let ind=0;
+   let currentCategory = document.querySelector("#current-category");
+   currentCategory.innerHTML = document.querySelector(".active-category").innerHTML;
    // resets the sorting option
    sortingOptions.value = "default";
    // resets the "sidebar" filters
@@ -69,7 +72,12 @@ function filterProducts(category){
          filter.value = maxPriceProduct;
       }
       else{
-         filter.value = "default";
+         let allFilterOptions = document.querySelectorAll(`${allFiltersClasses[ind]} input`)
+         allFilterOptions.forEach(filt => {
+            if (filt.checked)
+            filt.click();
+         });
+         ind += 1;
       }
       
    });
@@ -131,7 +139,9 @@ function displayRelevantSubcategories(shownSubcategories, hiddenSubcategories, b
 // a function to display the currently selected products, used for all types of filtering
 // including main categories from the header and the filters from the sidebar
 let productsCount;
-
+let subfilteredProducts;
+let subcatInd;
+let checkedFilterValues = [];
 function displayFilteredProducts(filter, productsToSelectFrom){
    // a variable to track the number of products
    itemsDisplayed = 0;
@@ -159,27 +169,72 @@ function displayFilteredProducts(filter, productsToSelectFrom){
       }
 
       else if (filter == "filter-by-subcategory"){
-         let selectedSubcategory = subcategoriesFilter.value;
+         let selectedSubcategories = document.querySelectorAll(".subcategories-filter input");
+         let checkedSubcategories = [];
+         selectedSubcategories.forEach(subcategory => {
+            if (subcategory.checked){
+               checkedSubcategories.push(subcategory);
+            }
+         })
          let currentProductSubcategory = product.dataset.subcategory;
-         displayFilter(selectedSubcategory, currentProductSubcategory, product);
+         subcatInd = 0;
+         for (let subcategory of checkedSubcategories){
+            displayFilter(subcategory.value, currentProductSubcategory, product);
+            subcatInd = subcatInd + 1;
+         }
       }
 
       else if (filter == "filter-by-color"){
-         let currentColor = colorFilter.value;
+         let currentColors = document.querySelectorAll(".color-filter input");
+         let checkedColours = [];
+         currentColors.forEach(color => {
+            if(color.checked){
+               checkedColours.push(color);
+            }
+         })
+
          let currentProductColor = product.dataset.colour;
-         displayFilter(currentColor, currentProductColor, product);
+         subcatInd = 0;
+         for (let color of checkedColours){
+            displayFilter(color.value, currentProductColor, product);
+            subcatInd = subcatInd + 1;
+         }
+         
       }
 
       else if (filter == "filter-by-brand"){
-         let currentBrand = brandFilter.value;
+         let currentBrands = document.querySelectorAll(".brands-filter input");
+         let checkedBrands = [];
+         currentBrands.forEach(brand => {
+            if (brand.checked){
+               checkedBrands.push(brand);
+            }
+         })
+
          let currentProductBrand = product.dataset.brand;
-         displayFilter(currentBrand, currentProductBrand, product);
+         subcatInd = 0;
+         for (let brand of checkedBrands){
+         displayFilter(brand.value, currentProductBrand, product);
+         subcatInd = subcatInd + 1;
+         }
       }
 
       else if(filter == "filter-by-rating"){
-         let currentRating = ratingFilter.value;
-         let currentProductRating = parseFloat(product.dataset.rating);
-         displayFilter(currentRating, currentProductRating, product);
+         let currentRatings = document.querySelectorAll(".rating-filter input");
+         let checkedRatings = [];
+         currentRatings.forEach(rating => {
+            if (rating.checked){
+               checkedRatings.push(rating);
+            }
+         })
+
+         let currentProductRating = product.dataset.rating;
+         subcatInd = 0;
+         for (let rating of checkedRatings){
+            
+            displayFilter(rating.value, currentProductRating, product);
+            subcatInd = subcatInd + 1;
+         }
       }
       
       else {
@@ -201,13 +256,18 @@ function displayFilteredProducts(filter, productsToSelectFrom){
 }
 
 function displayFilter(selectedFilter, currentProductFilter, currentProduct){
-   if(selectedFilter == currentProductFilter || selectedFilter == "All Products"){
-      displayProduct(currentProduct);
-   }
-   else {
-      hideProduct(currentProduct);
-   }
+      if(selectedFilter == currentProductFilter || selectedFilter == "All Products"){
+         displayProduct(currentProduct);
+      }
+      else if(subcatInd > 0 && currentProduct.classList.contains("selected")){   
+         displayProduct(currentProduct);
+      }
+      else {
+         hideProduct(currentProduct);
+      }
+   
 }
+
 function displayProduct(product){
    product.classList.add("selected");
    productsCount += 1;
@@ -247,14 +307,26 @@ function filterCurrentProducts(){
    // an arr to track the currently active filters 
    let activeFilters = [];
    // checks each of the filters on the sidebar
+   let filterIndex = 0; 
+   let allFilterOptions;
    allFilters.forEach(filter => {
-      if (filter.value != "default" && filter.value != minPriceProduct && filter.value != maxPriceProduct){
+      allFilterOptions = document.querySelectorAll(`${allFiltersClasses[filterIndex]} input`);
+      for (let option of allFilterOptions){
+         if (option.checked){
+            activeFilters.push(filter);
+            break;
+         }
+      }
+      console.log(activeFilters);
+      if (!isNaN(filter.value)){
          activeFilters.push(filter)
       }
       // else if (filter.value == "default"){
       //    displayFilteredProducts(filter.value, selectedProducts);
       // }
+      filterIndex += 1;
    })
+   filterIndex = 0;
    // refreshes the product grid with the currently selected products of category to filter accurately
    refreshProductGrid(selectedProducts);
    if (activeFilters.length){
@@ -284,6 +356,17 @@ function filterCurrentProducts(){
          filteredProducts = document.querySelectorAll(".selected");      
       })
       selectedProductsCount = filteredProducts.length;
+      // let selectedFilters = document.querySelector(".filter-values");
+      // selectedFilters.style.display = "block";
+      // selectedFilters.innerHTML = "";
+      // checkedFilterValues.forEach( filter => {
+      //    selectedFilters.innerHTML += filter.value;
+      // })
+      // if (!checkedFilterValues.length){
+      //    selectedFilters.style.display = "none";
+      // }
+      
+      
    }
    else{
       displayFilteredProducts("default", selectedProducts);
@@ -394,6 +477,7 @@ function sortProducts(sortType) {
 window.onload = () => {
    decideItemsToDisplay();
    loadAllProducts();
+   setFilters();
    addFiltersBehaviour();
    setResetFilterButtons();
    setSortingOptions();
@@ -506,11 +590,14 @@ function loadAllProducts(){
       selectedProductsCount = selectedProducts.length;
       productsCounter.innerHTML = `${itemsDisplayed}/${selectedProductsCount}`;
       categoryAndDescription.innerText = "All Products";
+      let currentCategory = document.querySelector("#current-category");
+      currentCategory.innerHTML = document.querySelector(".active-category").innerHTML;
    });
 }
 function setResetFilterButtons(){
    resetFilterButtons.forEach(resetButton => {
-      resetButton.addEventListener("click", function(){   
+      resetButton.addEventListener("click", function(){
+         let ind=0;   
          allFilters.forEach(filter => {
             if (filter == minPriceInput){
                filter.value =  minPriceProduct;
@@ -519,7 +606,12 @@ function setResetFilterButtons(){
                filter.value = maxPriceProduct;
             }
             else {
-               filter.value = "default";
+               let allFilterOptions = document.querySelectorAll(`${allFiltersClasses[ind]} input`)
+               allFilterOptions.forEach(filt => {
+                  if (filt.checked)
+                  filt.click();
+               });
+               ind += 1;
             }
          })
          filteredProducts = null;
@@ -636,10 +728,51 @@ function setStickyMobile(){
    }
 }
 function decideItemsToDisplay(){
-   if (window.innerWidth < 922){
+   if (window.innerWidth < 1222){
       itemsToDisplay = 10;
    }
    else{
       itemsToDisplay = 15;
    }
 }
+
+let allFiltersClasses = [".subcategories-filter", ".color-filter", ".brands-filter", ".rating-filter", ".price-filter"];
+function setFilters(){
+   let sidebarFilters = document.querySelectorAll(".sidebar ul li.checkbox-filter label.filter-box")
+   
+   for (let ind = 0; ind < sidebarFilters.length; ind ++){
+      if (window.innerWidth < 922){
+         document.querySelector(`${allFiltersClasses[ind]}-toggle i`).classList.remove("fa-minus");
+         document.querySelector(`${allFiltersClasses[ind]}-toggle i`).classList.add("fa-plus");
+         document.querySelector(allFiltersClasses[ind]).classList.add("hide");
+         if (ind == 0){
+            document.querySelector("#current-category").classList.add("hide");
+         }
+         document.querySelector(`${allFiltersClasses[ind]}-line`).classList.add("hide");
+      }
+      else{
+         document.querySelector(allFiltersClasses[ind]).classList.remove("hide");
+         if (ind == 0){
+            document.querySelector("#current-category").classList.remove("hide");
+         }
+         document.querySelector(`${allFiltersClasses[ind]}-line`).classList.remove("hide");
+      }
+
+      sidebarFilters[ind].addEventListener("click", function(){
+         document.querySelector(allFiltersClasses[ind]).classList.toggle("hide");
+         if (ind == 0){
+            document.querySelector("#current-category").classList.toggle("hide");
+         }
+         document.querySelector(`${allFiltersClasses[ind]}-line`).classList.toggle("hide");
+         if (document.querySelector(`${allFiltersClasses[ind]}-toggle`).innerHTML == '<i class="fa-solid fa-minus" style="color:#fff"></i>')
+         document.querySelector(`${allFiltersClasses[ind]}-toggle`).innerHTML = '<i class="fa-solid fa-plus" style="color:#fff"></i>'; 
+         else
+         document.querySelector(`${allFiltersClasses[ind]}-toggle`).innerHTML = '<i class="fa-solid fa-minus" style="color:#fff"></i>';
+      })
+   }
+}
+
+let allColors = document.querySelectorAll(".color-filter .color-checkbox span");
+allColors.forEach(color => {
+   document.getElementById(color.id).style.backgroundColor = color.id.split("-")[0];
+})
