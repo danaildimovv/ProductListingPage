@@ -33,104 +33,404 @@
       <div class="sidebar">
         <div id="close-filter"><i id="button-close" class="fa-solid fa-xmark fa-2xl"></i></div>
         <ul class="filters">
+
           <li id="filter-title">
           <!-- <div class="filter-heading">
             <h2>Products Filter</h2>
           </div> -->
         
           </li>
-          <li>
-        <label>Subcategory</label>
-        <br>
-        <select name="subcategories" id="subcategories-filter">
-          <option value="default">All</option>
-          <option class="apparel" value="Topwear">Topwear</option>
-          <option class="apparel" value="Bottomwear">Bottomwear</option>
-          <option class="apparel" value="Dress">Dresses</option>
-          <option class="footwear" value="Shoes">Shoes</option>
-          <option class="footwear" value="Sandal">Sandals</option>
-          <option class="footwear" value="Flip-Flops">Flip Flops</option>
 
-        </select>
-      </li>
-      <li>
-        <label>Color</label>
-        <br>
-        <select name="colors" id="color-filter">
-          <option value="default">All</option>
-          <option value="Blue">Blue</option> 
-          <option value="Red">Red</option> 
-          <option value="Green">Green</option>
-          <option value="Black">Black</option>
-          <option value="White">White</option>
-          <option value="Pink">Pink</option>  
-          <option value="Yellow">Yellow</option>
-          <option value="Olive">Olive</option>
-          <option value="Navy-Blue">Navy Blue</option>
-          <option value="Grey">Grey</option>
-          <option value="Orange">Orange</option>
-          <option value="Purple">Purple</option>
-          <option value="Turquoise-Blue">Turquoise Blue</option>
-          <option value="Khaki">Khaki</option>
-          <option value="Multi">Multi</option>
-          <option value="Beige">Beige</option> 
-          <option value="Brown">Brown</option>
-          <option value="Tan">Tan</option>
-          <option value="Maroon">Maroon</option>
-          <option value="Charcoal">Charcoal</option>
-          <option value="Silver">Silver</option>
-          <option value="Copper">Copper</option>
-          <option value="Lavender">Lavender</option>
-          <option value="Gold">Gold</option>
-          <option value="Bronze">Bronze</option>                  
-        </select>
-      </li>
-      <li>
-        <label>Brand</label>
-        <br>
-        <select name="brands" id="brands-filter">
-          <option value="default">All</option>
-          <option value="Doodle">Doodle</option> 
-          <option value="Disney">Disney</option> 
-          <option value="Gini-and-Jony">Gini and Jony</option>
-          <option value="Palm-Tree">Palm Tree</option>
-          <option value="Reebok">Reebok</option>
-          <option value="Chhota-Bheem">Chhota Bheem</option>  
-          <option value="Madagascar3">Madagascar3</option>
-          <option value="United-Colors-of-Benetton">United Colors of Benetton</option>
-          <option value="Puma">Puma</option>
-          <option value="Fila">Fila</option>
-          <option value="Adidas">Adidas</option>
-          <option value="Nike">Nike</option>
-          <option value="Gas">Gas</option>
-          <option value="Clarks">Clarks</option>
-          <option value="Timberland">Timberland</option>
-          <option value="Vans">Vans</option>
-          <option value="Lotto">Lotto</option>
-          <option value="Lee-Cooper">Lee Cooper</option>
-          <option value="Enroute">Enroute</option>
-          <option value="brand">Other</option>
+          <li class="checkbox-filter">
+            <label class="filter-box">
+              <div class="filter-name">Category</div>
+              <div class="subcategories-filter-toggle"><i class="fa-solid fa-minus" style="color:#fff"></i></div>
+            </label>
+            <br><hr class="subcategories-filter-line">
+            <label id="current-category"></label>
+            <div class="subcategories-filter">
+              <ul class="apparelSubcategory">
+                <li>
+                  <input type="checkbox" name="topwear" value="Topwear">
+                  <label for="topwear">Topwear</label>
+                </li>
 
-          </select>
+                <li>
+                  <input type="checkbox" name="bottomwear" value="Bottomwear">
+                  <label for="bottomwear">Bottomwear</label>
+                </li>
+
+                <li>
+                  <input type="checkbox" name="dress" value="Dress">
+                  <label for="dress">Dresses</label>
+                </li>
+              </ul>
+
+              <ul class="footwearSubcategory">
+                <li>
+                  <input type="checkbox" name="shoes" value="Shoes">
+                  <label for="shoes">Shoes</label>
+                </li>
+          
+                <li>
+                  <input type="checkbox" name="sandal" value="Sandal">
+                  <label for="sandal">Sandal</label>
+                </li>
+
+                <li>
+                  <input type="checkbox" name="flip-flops" value="Flip-Flops">
+                  <label for="flip-flops">Flip-flops</label>
+                </li>
+                </ul>
+
+            </div>
+          </li>
+
+          <li class="checkbox-filter">
+            <label class="filter-box">
+              <div class="filter-name">Color</div>
+              <div class="color-filter-toggle"><i class="fa-solid fa-minus" style="color:#fff"></i></div>
+            </label>
+            <br><hr class="color-filter-line">
+            <div class="color-filter">
+              <ul>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Blue">
+                    <span id="blue-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Blue</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Red">
+                    <span id="red-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Red</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Green">
+                    <span id="green-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Green</div>
+                  </label>
+                </li> 
+
+                 <li>
+                      <label class="color-checkbox">
+                    <input type="checkbox" value="Black">
+                    <span id="black-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Black</div>
+                  </label>
+                </li>
+
+                 <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="White">
+                    <span id="white-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">White</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Pink">
+                    <span id="pink-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Pink</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Yellow">
+                    <span id="yellow-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Yellow</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Olive">
+                    <span id="#808000-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Olive</div>
+                  </label>
+                </li>
+
+                 <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Navy-Blue">
+                    <span id="navy-blue-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Navy Blue</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Grey">
+                    <span id="grey-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Grey</div>
+                  </label>
+                </li>
+
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Orange">
+                    <span id="orange-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Orange</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Purple">
+                    <span id="purple-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Purple</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Turquoise-Blue">
+                    <span id="turquoise-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Turquoise Blue</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Khaki">
+                    <span id="khaki-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Khaki</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Beige">
+                    <span id="beige-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Beige</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Brown">
+                    <span id="brown-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Brown</div>
+                  </label>
+                </li> 
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Tan">
+                    <span id="tan-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Tan</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Maroon">
+                    <span id="maroon-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Maroon</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Charcoal">
+                    <span id="#36454f-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Charcoal</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Silver">
+                    <span id="#C0C0C0-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Silver</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Copper">
+                    <span id="#B87333-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Copper</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Lavender">
+                    <span id="#E6E6FA-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Lavender</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Gold">
+                    <span id="#FFD700-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Gold</div>
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Bronze">
+                    <span id="#CD7F32-box" class="color-box"></span>
+                    <div style="top:0; position: absolute">Bronze</div>
+                    
+                  </label>
+                </li>
+                <li>
+                  <label class="color-checkbox">
+                    <input type="checkbox" value="Multi">
+                    <span id="#ffffff-box" class="color-box">
+                      <span style="width: 75%;" id="#000000-box" class="color-box">
+                      <span style="width: 50%" id="#A15D74-box" class="color-box">
+                        <span style="width: 25%" id="#F2D658-box" class="color-box">
+                        </span>
+                      </span>
+                    </span></span>
+                    <div style="top:0; position: absolute">Multi</div>
+                    
+                  </label>
+                </li> 
+
+              </ul>
+
+            </div>
+          </li>
+
+      <li class="checkbox-filter">
+        <label class="filter-box">
+          <div class="filter-name">Brand</div>
+          <div class="brands-filter-toggle"><i class="fa-solid fa-minus" style="color:#fff"></i></div>
+        </label>
+        <br><hr class="brands-filter-line">
+        <div class="brands-filter">
+          <ul>
+          
+            <li>
+              <input type="checkbox" name="doodle" value="Doodle">
+              <label for="doodle">Doodle</label>
+            </li>
+            
+            <li>
+              <input type="checkbox" name="disney" value="Disney">
+              <label for="disney">Disney</label>
+            </li> 
+            
+            <li>
+              <input type="checkbox" name="gini-and-jony" value="Gini-and-Jony">
+              <label for="gini-and-jony">Gini and Jony</label>
+            </li> 
+
+            <li>
+              <input type="checkbox" name="palm-tree" value="Palm-Tree">
+              <label for="palm-tree">Palm Tree</label>
+            </li>
+            <li>
+              <input type="checkbox" name="reebok" value="Reebok">
+              <label for="reebok">Reebok</label>
+            </li>
+            <li>
+              <input type="checkbox" name="chhota-bheem" value="Chhota-Bheem">
+              <label for="chhota-bheem">Chhota Bheem</label>
+            </li>
+            <li>
+              <input type="checkbox" name="madagascar3" value="Madagascar3">
+              <label for="madagascar3">Madagascar3</label>
+            </li>  
+            <li>
+              <input type="checkbox" name="united-colors-of-benetton" value="United-Colors-of-Benetton">
+              <label for="united-colors-of-benetton">United Colors of Benetton</label>
+            </li>
+            <li>
+              <input type="checkbox" name="puma" value="Puma">
+              <label for="puma">Puma</label>
+            </li>
+            <li>
+              <input type="checkbox" name="fila" value="Fila">
+              <label for="fila">Fila</label>
+            </li>
+            <li>
+              <input type="checkbox" name="adidas" value="Adida">
+              <label for="adidas">Adidas</label>
+            </li>
+            <li>
+              <input type="checkbox" name="nike" value="Nike">
+              <label for="nike">Nike</label>
+            </li>
+            <li>
+              <input type="checkbox" name="gas" value="Gas">
+              <label for="gas">Gas</label>
+            </li>
+            <li>
+              <input type="checkbox" name="clarks" value="Clarks">
+              <label for="clarks">Clarks</label>
+            </li>
+            <li>
+              <input type="checkbox" name="timberland" value="Timberland">
+              <label for="timberland">Timberland</label>
+            </li>
+            <li>
+              <input type="checkbox" name="vans" value="Vans">
+              <label for="vans">Vans</label>
+            </li>
+            <li>
+              <input type="checkbox" name="lotto" value="Lotto">
+              <label for="lotto">Lotto</label>
+            </li>
+            <li>
+              <input type="checkbox" name="lee-cooper" value="Lee-Cooper">
+              <label for="lee-cooper">Lee Cooper</label>
+            </li>
+            <li>
+              <input type="checkbox" name="enroute" value="Enroute">
+              <label for="enroute">Enroute</label>
+            </li>
+            <li>
+              <input type="checkbox" name="brand" value="brand">
+              <label for="brand">Other</label>
+            </li>
+            
+          </ul>
+        </div>
 
         </li>
-        <!-- <li>
-          <label>Rating</label>
-          <br>
-          <select name="rating" id="rating-filter">
-            <option value="default">All</option>
-            <option value="1">⭐</option> 
-            <option value="2">⭐⭐</option> 
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option> 
-            </select>
-  
-          </li> -->
-        <li>
-          <div id="price-filter">
-            <label>Price</label>
-            <br>
+        <li class="checkbox-filter">
+          <label class="filter-box">
+            <div class="filter-name">Rating</div>
+            <div class="rating-filter-toggle"><i class="fa-solid fa-minus" style="color:#fff"></i></div>
+          </label>
+          <br><hr class="rating-filter-line">
+          <div class="rating-filter">
+            <ul>
+          
+              <li>
+                <input type="checkbox" name="1" value="1">
+                <label for="1">⭐</label>
+              </li>
+              <li>
+                <input type="checkbox" name="2" value="2">
+                <label for="2">⭐⭐</label>
+              </li>
+              <li>
+                <input type="checkbox" name="3" value="3">
+                <label for="3">⭐⭐⭐</label>
+              </li>
+              <li>
+                <input type="checkbox" name="4" value="4">
+                <label for="4">⭐⭐⭐⭐</label>
+              </li>
+              <li>
+                <input type="checkbox" name="5" value="5">
+                <label for="5">⭐⭐⭐⭐⭐</label>
+              </li>
+
+            </ul>
+          </div>
+          
+          </li>
+        <li class="price-container-filter checkbox-filter">
+          <label class="filter-box">
+            <div class="filter-name">Price</div>
+            <div class="price-filter-toggle"><i class="fa-solid fa-minus" style="color:#fff"></i></div>
+          </label>
+          <br><hr class="price-filter-line">
+          <div class="price-filter">
           <label class="min-max-labels">Min</label>
           <input type="text" id="min-price">
           <label class="min-max-labels">Max</label>
@@ -138,7 +438,7 @@
           </div>
         </li>
         <li>
-        <button id="submit-filter-button" onclick="filterCurrentProducts()">Filter</button>
+        <button id="submit-filter-button">Filter</button>
         </li>
         <li>
           <button id="reset-filters-desktop" class="reset-filters-button">Reset Filter</button>
@@ -151,7 +451,7 @@
         <div class="products-info">
           <div class="category-and-description"></div>
           <div class="sort-dropdown">
-            <select name="sorting-options" id="sorting"> 
+            <select name="sorting-options" class="sorting"> 
               <option value="default">Sort by: Default</option>
               <option value="price-asc">Sort by: Price (Asc)</option> 
               <option value="price-desc">Sort by: Price (Desc)</option> 
@@ -163,7 +463,7 @@
             <button id="filter-button">Open Filter</button>
           </div>
           <div class="number-of-items"></div>
-
+          <div class="filter-values"></div>
         </div>
 
         <div class="product-grid">
